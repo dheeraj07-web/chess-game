@@ -1,0 +1,39 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("chessbg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100vh;
+}
+
+.container {
+    display: flex;
+}
+
+.chess-board {
+    display: grid;
+    border: 1px solid black;
+    border-radius: 10px;
+    grid-template-columns: repeat(8, 80px);
+    grid-template-rows: repeat(8, 80px);
+    margin: 50px 50px 50px 80px;
+}
+
+.white {
+    background-color: white;
+
+}
+
+.black {
+    background-color: rgb(59, 118, 246);
+
+}
+
+.menu {
+    height: 700px;
+    width: 400px;
+    border: 2px solid white;
+    margin: 60px 0px 0px 100px;
+}
