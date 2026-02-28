@@ -1,15 +1,22 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
 body {
     display: flex;
-    justify-content: center;
     align-items: center;
-    background-image: url("chessbg.jpg");
+    background-image: url("chessbackground.jpg");
     background-size: cover;
     background-repeat: no-repeat;
-    width: 100vh;
+    width: 100%;
+
 }
 
 .container {
     display: flex;
+    margin-left: 0px;
 }
 
 .chess-board {
@@ -22,18 +29,68 @@ body {
 }
 
 .white {
-    background-color: white;
-
+    background-color: wheat;
+    color: rgb(72, 60, 33);
+    position: relative;
 }
 
 .black {
-    background-color: rgb(59, 118, 246);
-
+    background-color: rgb(72, 60, 33);
+    color: wheat;
+     position: relative;
 }
 
 .menu {
-    height: 700px;
-    width: 400px;
-    border: 2px solid white;
-    margin: 60px 0px 0px 100px;
+    height: 710px;
+    width: 200px;
+    /* border: 2px solid white; */
+    margin: 5px 0px 0px 5px;
+    background-color: black;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+
 }
+
+.gamelogo {
+    height: 100px;
+    width: 200px;
+    color: white;
+}
+
+.logo {
+    background-image: url("logo.png");
+    height: 100px;
+    width: 100%;
+    background-size: cover;
+}
+
+div .file {
+    text-align: end;
+    font-weight: bolder;
+}
+
+div .rank {
+    text-align: left;
+    margin-top: 80%;
+    font-weight: bolder;
+}
+
+div .rank1 {
+    text-align: left;
+    margin-top: 58%;
+    font-weight: bolder;
+}
+
+div .file2 {
+    margin-top: 78%;
+    text-align: end;
+    font-weight: bolder;
+}
+.bnight{
+    background-image: url("lit_top_pices/Chess_nlt45.svg");
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+
+}   
