@@ -4,94 +4,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>chessgame</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <div class="chessboard">
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <!-- 2ndrank -->
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <!-- 3rd rank -->
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <!-- 4rd rank -->
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
+    <div class="container">
+        <div class="menu">
+            <div class="gamelogo">
+                <div class="logo"></div>
+            </div>
 
+            <ul class="mode">
+                <li>player vs player</li>
+                <li>play with bot</li>
 
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <!-- 2ndrank -->
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <!-- 3rd rank -->
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <!-- 4rd rank -->
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
-        <div class="black"></div>
-        <div class="white"></div>
+            </ul>
+            <div class="controls">
+                <button>New Game</button>
+                <button>Reset</button>
+            </div>
 
+        </div>
+        <div class="chess-board">
+            <div class="white" id="a1">
+                <span class="file">h</span>
+                <span class="rank">1</span>
+                <img src="lit_top_pices/Chess_rlt45.svg">
 
+            </div>
+            <div class="black" id="b1">
+                <span class="file">g</span>
+                <img src="lit_top_pices/Chess_nlt45.svg">
+            </div>
+            <div class="white" id="c1">
+                <span class="file">f</span>
+                <img src="lit_top_pices/Chess_blt45.svg">
+            </div>
+            <div class="black" id="d1">
+                <span class="file">e</span>
+                <img src="lit_top_pices/Chess_klt45.svg">
+            </div>
+            <div class="white" id="e1">
+                <span class="file">d</span>
+                <img src="lit_top_pices/Chess_qlt45.svg">
+            </div>
+            <div class="black" id="f1">
+                <span class="file">c</span>
+                <img src="lit_top_pices/Chess_blt45.svg">
+            </div>
+            <div class="white" id="g1">
+                <span class="file">b</span>
+                <img src="lit_top_pices/Chess_nlt45.svg">
+            </div>
+            <div class="black" id="h1">
+                <span class="file">a</span>
+                <img src="lit_top_pices/Chess_rlt45.svg">
+            </div>
+            <!-- 2ndrank -->
+            <div class="black" id="a2">
+                <span class="rank">2</span>
+                <img src="lit_top_pices/Chess_plt45.svg">
+            </div>
+            <div class="white" id="b2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="black" id="c2 "> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="white" id="d2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="black" id="e2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="white" id="f2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="black" id="g2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <div class="white" id="h2"> <img src="lit_top_pices/Chess_plt45.svg"></div>
+            <!-- 3rd rank -->
+            <div class="white" id="a3">
+                <span class="rank">3</span>
+            </div>
+            <div class="black" id="b3"></div>
+            <div class="white" id="c3"></div>
+            <div class="black" id="d3"></div>
+            <div class="white" id="e3"></div>
+            <div class="black" id="f3"></div>
+            <div class="white" id="g3"></div>
+            <div class="black" id="h3"></div>
+            <!-- 4rd rank -->
+            <div class="black" id="a4">
+                <span class="rank">4</span>
+            </div>
+            <div class="white" id="b4"></div>
+            <div class="black" id="c4 "></div>
+            <div class="white" id="d4"></div>
+            <div class="black" id="e4"></div>
+            <div class="white" id="f4"></div>
+            <div class="black" id="g4"></div>
+            <div class="white" id="h4"></div>
+            <!-- 5rd rank -->
 
+            <div class="white" id="a5">
+                <span class="rank">5</span>
+            </div>
+            <div class="black" id="b5"></div>
+            <div class="white" id="c5 "></div>
+            <div class="black" id="d5"></div>
+            <div class="white" id="e5"></div>
+            <div class="black" id="f5"></div>
+            <div class="white" id="g5"></div>
+            <div class="black" id="h5"></div>
+            <!-- 6ndrank -->
+            <div class="black" id="a6">
+                <span class="rank">6</span>
+            </div>
+            <div class="white" id="b6"></div>
+            <div class="black" id="c6"></div>
+            <div class="white" id="d6"></div>
+            <div class="black" id="e6"></div>
+            <div class="white" id="f6"></div>
+            <div class="black" id="g6"></div>
+            <div class="white" id="h6"></div>
+            <!-- 7rd rank -->
+            <div class="white" id="a7">
+                <span class="rank">7</span>
+                <img src="dark_top_pices/Chess_pdt45.svg">
+            </div>
+            <div class="black" id="b7">
+                <img src="dark_top_pices/Chess_pdt45.svg">
+            </div>
+            <div class="white" id="c7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <div class="black" id="d7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <div class="white" id="e7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <div class="black" id="f7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <div class="white" id="g7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <div class="black" id="h7"> <img src="dark_top_pices/Chess_pdt45.svg"></div>
+            <!-- 8rd rank -->
+            <div class="black" id="a8">
+                <span class="rank">8</span>
+                <span class="file">h</span>
+                <img src="dark_top_pices/Chess_rdt45.svg">
+            </div>
+            <div class="white" id="b8">
+                <span class="file">g</span>
+                <img src="dark_top_pices/Chess_ndt45.svg">
+            </div>
+            <div class="black" id="c8">
+                <span class="file">f</span>
+                <img src="dark_top_pices/Chess_bdt45.svg">
 
+            </div>
+            <div class="white" id="d8">
+                <span class="file">e</span>
+                <img src="dark_top_pices/Chess_kdt45.svg">
+            </div>
+            <div class="black" id="e8">
+                <span class="file">d</span>
+                <img src="dark_top_pices/Chess_qdt45.svg">
+            </div>
+            <div class="white" id="f8">
+                <span class="file">c</span>
+                <img src="dark_top_pices/Chess_bdt45.svg">
+            </div>
+            <div class="black" id="g8">
+                <span class="file">b</span>
+                <img src="dark_top_pices/Chess_ndt45.svg">
+            </div>
+            <div class="white" id="h8">
+                <span class="file">a</span>
+                <img src="dark_top_pices/Chess_rdt45.svg">
+            </div>
+        </div>
     </div>
 
-
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.13.4/chess.min.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
