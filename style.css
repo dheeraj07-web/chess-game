@@ -5,14 +5,22 @@
     font-family: "Segoe UI", sans-serif;
 }
 
-#bground{
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     background: linear-gradient(135deg, #1e1e2f, #2c2c3e);
-    background-image:url("chessbackground.jpg") ;
-     background-size: cover;
+    background-image: url("chessbackground.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.homeback {
+    background-image: url("logo2.png");
+    height: 200px;
+    width: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -21,14 +29,15 @@
     display: flex;
     gap: 30px;
 }
-.home_page{
-display: flex;
+
+.home_page {
+    display: flex;
     gap: 30px;
 }
 
-.gamelogo{
-    height:300px;
-    width:300px;
+.gamelogo {
+    height: 300px;
+    width: 300px;
 }
 
 /* ================= MENU ================= */
@@ -44,34 +53,6 @@ display: flex;
     gap: 20px;
 }
 
-.logo {
-    background-image: url("logo.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-/* MODE LIST */
-.mode li {
-    list-style: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-}
-
-.mode li:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* STATUS */
-#status {
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.4);
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
-}
-
 /* BUTTONS */
 .controls button {
     width: 100%;
@@ -84,22 +65,10 @@ display: flex;
     transition: 0.2s;
 }
 
- li button {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    background: #4caf50;
-    color: white;
-    cursor: pointer;
-    transition: 0.2s;
-}
-.controls button:hover{
+.controls button:hover {
     background: #45a049;
 }
-li button:hover{
-    background: #45a049;
-}
+
 /* ================= BOARD ================= */
 .chess-board {
     display: grid;
@@ -110,9 +79,18 @@ li button:hover{
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+   
+    /* 🔥 smooth flip animation */
+    transition: transform 0.4s ease;
+    transform-style: preserve-3d;
 }
 
-/* SQUARES */
+/* FLIP SUPPORT */
+.chess-board.flipped {
+    transform: rotate(180deg);
+}
+
+/* ================= SQUARES ================= */
 .white {
     background: #f0d9b5;
 }
@@ -130,36 +108,35 @@ li button:hover{
     transition: 0.2s;
 }
 
-/* HOVER EFFECT */
-.white:hover,
-.black:hover {
-    outline: 2px solid rgba(255, 255, 255, 0.3);
-
-}
-
-/* PIECES */
+/* ================= PIECES ================= */
 .chess-board img {
     width: 85%;
     height: 85%;
     object-fit: contain;
     cursor: grab;
-    transition: transform 0.15s ease;
+    transition: transform 0.2s ease;
+    user-select: none;
 }
 
+/* keep pieces readable when flipping */
 .chess-board img:active {
     transform: scale(1.1);
     cursor: grabbing;
 }
 
-/* LABELS */
+/* ================= LABELS ================= */
 .rank,
 .file {
     position: absolute;
     font-size: 10px;
     font-weight: bold;
     opacity: 0.6;
+    pointer-events: none;
 }
-
+.chess-board.flipped .rank,
+.chess-board.flipped .file {
+    transform: rotate(180deg);
+}
 .rank {
     bottom: 2px;
     left: 4px;
@@ -170,24 +147,116 @@ li button:hover{
     right: 4px;
 }
 
-.chess-board span {
-    pointer-events: none;
-}
-
-/* ================= HIGHLIGHTS ================= */
-.highlight {
-    background-color: rgba(0, 255, 0, 0.3);
-}
-
+/* ================= SELECTION ================= */
+/* better than yellow outline */
 .selected {
-    outline: 3px solid yellow;
+    outline: 2px solid rgba(0, 140, 255, 0.9);
+    box-shadow: 0 0 10px rgba(0, 140, 255, 0.4);
+    border-radius: 6px;
 }
 
-.last-move {
-    background-color: rgba(255, 255, 0, 0.4);
+/* ================= MOVE HIGHLIGHT ================= */
+/* clean "text selection style" dot */
+.highlight {
+    position: relative;
+    
+}
+
+.highlight::after {
+    content: "";
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    background: rgba(244, 0, 0, 0.25);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
+/* captured pieces */
+.game-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* TOP CAPTURE (black pieces) */
+.black-captured {
+    width: min(80vmin, 600px);
+    min-height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+/* BOTTOM CAPTURE (white pieces) */
+.white-captured {
+    width: min(80vmin, 600px);
+    min-height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 6px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+/* pieces */
+.black-captured img,
+.white-captured img {
+    width: 22px;
+    height: 22px;
+}
+
+/* ================= OPTIONAL ENHANCED STYLE (if you want later) ================= */
+/*
+.highlight::after {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 140, 255, 0.18);
+    border-radius: 6px;
+
+
+/* 🔴 Black captured pieces (shown on white side) */
+.black-captured {
+    width: min(80vmin, 600px);
+    min-height: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: white;
+}
+
+/* ⚪ White captured pieces (shown on black side) */
+.white-captured {
+    width: min(80vmin, 600px);
+    min-height: 45px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    padding: 6px 8px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 8px;
+    color: white;
+}
+
+/* captured piece images */
+.black-captured img,
+.white-captured img {
+    width: 22px;
+    height: 22px;
+}
 
 /* ================= MOBILE ================= */
 @media (max-width: 768px) {

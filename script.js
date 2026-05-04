@@ -1,33 +1,51 @@
-console.log("CHESS JS LOADED");
+console.log("JS LOADED");
 
 let game;
 let board;
 
 let draggedPiece = null;
 let fromSquare = null;
+
 let isFlipped = false;
+let selectedSquare = null;
+
+let whiteCaptured = [];
+let blackCaptured = [];
+
+// ==========================
+// CAPTURE FUNCTION (UNCHANGED LOGIC, SAFE FIX)
+// ==========================
+function addCapturedPiece(move) {
+
+  if (!move || !move.captured) return;
+
+  const piece = document.createElement("img");
+
+  const color = move.color === "w" ? "b" : "w";
+  const type = move.captured;
+
+  piece.src =
+    color === "w"
+      ? `lit_top_pices/Chess_${type}lt45.svg`
+      : `dark_top_pices/Chess_${type}dt45.svg`;
+
+  piece.alt = `${color}-${type}`;
+
+  if (color === "w") {
+    whiteCaptured.push(piece);
+    document.getElementById("whiteCaptured")?.appendChild(piece);
+  } else {
+    blackCaptured.push(piece);
+    document.getElementById("blackCaptured")?.appendChild(piece);
+  }
+}
+
 let gameMode = localStorage.getItem("gameMode") || "pvp";
 
 document.addEventListener("DOMContentLoaded", () => {
 
-  game = new Chess();
-  board = document.querySelector(".chess-board");
-
-  if (!board) {
-    console.error("Chess board not found!");
-    return;
-  }
-
-  renderBoard();
-
-  // ==========================
-  // SAFE BUTTONS (NO CRASH)
-  // ==========================
   const pvpBtn = document.getElementById("pvpBtn");
   const botBtn = document.getElementById("botBtn");
-  const undoBtn = document.getElementById("undoBtn");
-  const resetBtn = document.getElementById("resetBtn");
-  const flipBtn = document.getElementById("flipBtn");
 
   if (pvpBtn && botBtn) {
     pvpBtn.addEventListener("click", () => {
@@ -39,7 +57,85 @@ document.addEventListener("DOMContentLoaded", () => {
       localStorage.setItem("gameMode", "bot");
       window.location.href = "new_game.html";
     });
+
+    return;
   }
+
+  game = new Chess();
+  board = document.querySelector(".chess-board");
+
+  if (!board) return;
+
+  renderBoard();
+
+  // ==========================
+  // FLIP BUTTON
+  // ==========================
+  document.getElementById("flipBtn")?.addEventListener("click", () => {
+    isFlipped = !isFlipped;
+    renderBoard();
+  });
+
+  // ==========================
+  // CLICK TO MOVE
+  // ==========================
+  board.addEventListener("click", (e) => {
+
+    const square = e.target.closest(".white, .black");
+    if (!square) return;
+
+    clearHighlights();
+
+    const piece = square.querySelector("img");
+
+    if (!selectedSquare) {
+
+      if (!piece) return;
+
+      const type = piece.dataset.piece;
+      if (!type) return;
+
+      if (type[0] !== game.turn()) return;
+
+      selectedSquare = square.id;
+
+      square.classList.add("selected");
+
+      const moves = game.moves({
+        square: selectedSquare,
+        verbose: true
+      });
+
+      moves.forEach(m => {
+        const t = document.getElementById(m.to);
+        if (t) t.classList.add("highlight");
+      });
+
+      return;
+    }
+
+    const move = game.move({
+      from: selectedSquare,
+      to: square.id,
+      promotion: "q"
+    });
+
+    if (move) {
+
+      addCapturedPiece(move); // ✅ FIX ADDED HERE
+
+      selectedSquare = null;
+      renderBoard();
+      checkGameStatus();
+
+      if (gameMode === "bot") {
+        setTimeout(botMove, 400);
+      }
+    } else {
+      selectedSquare = null;
+      renderBoard();
+    }
+  });
 
   // ==========================
   // DRAG START
@@ -54,6 +150,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const color = type[0];
 
+    if (gameMode === "bot" && game.turn() === "b") {
+      e.preventDefault();
+      return;
+    }
+
     if (color !== game.turn()) {
       e.preventDefault();
       return;
@@ -65,6 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
     piece.style.opacity = "0.5";
   });
 
+  // ==========================
+  // DRAG END
+  // ==========================
   board.addEventListener("dragend", () => {
     if (draggedPiece) draggedPiece.style.opacity = "1";
     draggedPiece = null;
@@ -79,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
   board.addEventListener("drop", (e) => {
 
     e.preventDefault();
+
     if (!draggedPiece || !fromSquare) return;
 
     let target = e.target;
@@ -94,6 +199,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!move) return;
 
+    addCapturedPiece(move); // ✅ FIX ADDED HERE
+
     renderBoard();
     checkGameStatus();
 
@@ -103,45 +210,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // ==========================
-  // CLICK HIGHLIGHT
-  // ==========================
-  board.addEventListener("click", (e) => {
-
-    const square = e.target.closest(".white, .black");
-    if (!square) return;
-
-    clearHighlights();
-
-    const piece = square.querySelector("img");
-    if (!piece) return;
-
-    const type = piece.dataset.piece;
-    if (!type) return;
-
-    if (type[0] !== game.turn()) return;
-
-    square.classList.add("selected");
-
-    const moves = game.moves({
-      square: square.id,
-      verbose: true
-    });
-
-    moves.forEach(m => {
-      const t = document.getElementById(m.to);
-      if (t) t.classList.add("highlight");
-    });
-  });
-
-  // ==========================
   // UNDO
   // ==========================
-  undoBtn?.addEventListener("click", () => {
+  document.getElementById("undoBtn")?.addEventListener("click", () => {
 
     game.undo();
 
     if (gameMode === "bot") {
-      game.undo(); // undo bot move too
+      game.undo();
     }
 
     renderBoard();
@@ -150,23 +226,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================
   // RESET
   // ==========================
-  resetBtn?.addEventListener("click", () => {
+  document.getElementById("resetBtn")?.addEventListener("click", () => {
     game.reset();
-    renderBoard();
-  });
-
-  // ==========================
-  // FLIP
-  // ==========================
-  flipBtn?.addEventListener("click", () => {
-    isFlipped = !isFlipped;
     renderBoard();
   });
 
 });
 
 // ==========================
-// BOT (RANDOM MOVE)
+// BOT
 // ==========================
 function botMove() {
 
@@ -180,25 +248,27 @@ function botMove() {
 
   game.move(move);
 
+  addCapturedPiece(move); // ✅ FIX ADDED HERE
+
   renderBoard();
   checkGameStatus();
 }
 
 // ==========================
-// GAME STATUS
+// STATUS
 // ==========================
 function checkGameStatus() {
   if (game.in_checkmate()) alert("Checkmate!");
+  else if (game.in_check()) console.log("Check!");
   else if (game.in_draw()) alert("Draw!");
 }
 
 // ==========================
-// CLEAR HIGHLIGHTS
+// CLEAR
 // ==========================
 function clearHighlights() {
-  document.querySelectorAll(".highlight, .selected").forEach(el => {
-    el.classList.remove("highlight", "selected");
-  });
+  document.querySelectorAll(".highlight, .selected")
+    .forEach(el => el.classList.remove("highlight", "selected"));
 }
 
 // ==========================
@@ -206,30 +276,22 @@ function clearHighlights() {
 // ==========================
 function renderBoard() {
 
-  document.querySelectorAll(".chess-board div").forEach(square => {
-    square.innerHTML = "";
+  const boardState = game.board();
+  const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
+
+  document.querySelectorAll(".chess-board div").forEach(sq => {
+    sq.innerHTML = "";
   });
 
-  const boardState = game.board();
-  const files = ["a","b","c","d","e","f","g","h"];
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
 
-  const rows = isFlipped ? [...boardState].reverse() : boardState;
+      const piece = boardState[r][c];
+      if (!piece) continue;
 
-  rows.forEach((row, r) => {
-
-    const cols = isFlipped ? [...row].reverse() : row;
-
-    cols.forEach((piece, c) => {
-
-      if (!piece) return;
-
-      const rr = isFlipped ? 7 - r : r;
-      const cc = isFlipped ? 7 - c : c;
-
-      const squareId = files[cc] + (8 - rr);
+      const squareId = files[c] + (8 - r);
       const square = document.getElementById(squareId);
-
-      if (!square) return;
+      if (!square) continue;
 
       const img = document.createElement("img");
 
@@ -242,6 +304,12 @@ function renderBoard() {
       img.setAttribute("data-piece", `${piece.color}_${piece.type}`);
 
       square.appendChild(img);
-    });
+    }
+  }
+
+  board.style.transform = isFlipped ? "rotate(180deg)" : "rotate(0deg)";
+
+  document.querySelectorAll(".chess-board img").forEach(img => {
+    img.style.transform = isFlipped ? "rotate(180deg)" : "rotate(0deg)";
   });
 }
