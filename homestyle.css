@@ -70,15 +70,9 @@
 
 .controls button:hover,
 .controls button a:hover {
-    color: #49d437;
+    color: #d4af37;
     transition: 0.3s;
     border: 1px solid white;
-}
-
-.controls button a:hover {
-
-    border: none;
-
 }
 
 .logo {
@@ -101,10 +95,15 @@
     /* remove old margins */
 }
 
-.visible {
-    visibility: hidden;
+.visible{
+visibility: hidden;
 }
 
+.controls button a:hover {
+
+    border: none;
+
+}
 
 
 
@@ -233,6 +232,13 @@ h2 {
 
     }
 
+    .controls button:hover,
+    .controls button a:hover {
+        color: #49d437;
+        transition: 0.3s;
+    }
+
+
     .logo {
         position: static;
         /* already fixed */
@@ -243,8 +249,7 @@ h2 {
         display: block;
         /* ensures margin auto works */
     }
-
-    .visible {
+    .visible{
         visibility: visible;
     }
 

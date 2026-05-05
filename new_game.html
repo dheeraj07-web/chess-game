@@ -1,16 +1,21 @@
 <html>
 
 <head>
+    <title>chess game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body id="bground">
     <div class="controls">
-
+        <div class="gamelogo">
+            <div class="logo"></div>
+        </div>
         <div class="menu">
-            <button id="resetBtn">New Game</button><br><br>
-            <button id="undoBtn">Undo</button><br>
+            <button id="resetBtn">New Game</button>
+            <button id="undoBtn">Undo</button>
             <button id="flipBtn">Flip</button>
+            <button id="rateus"><a href="rateus.html">rate us</a></button>
+            <button id="back"><a href="index.html">return to home page</a></button>
         </div>
     </div>
     <div class="game-wrapper">
@@ -189,11 +194,16 @@
                     data-piece="b_rook">
             </div>
         </div>
-         <div class="white-captured">
-        <div id="whiteCaptured"></div>
-    </div>
+        <div class="white-captured">
+            <div id="whiteCaptured"></div>
+        </div>
 
-</div>
+
+    </div>
+    </div>
+      <div class="move-history">
+        <h3>Move History</h3>
+        <div id="history"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
     <script src="script.js"></script>

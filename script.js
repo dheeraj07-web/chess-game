@@ -403,23 +403,27 @@ function recordMove(from, to, piece, captured = null) {
 }
 
 function updateHistory() {
-  const historyDiv = document.getElementById("history");
-  if (!historyDiv) return;
+    const historyDiv = document.getElementById("history");
+    if (!historyDiv) return;
 
-  historyDiv.innerHTML = "";
+    historyDiv.innerHTML = "";
 
-  for (let i = 0; i < moveList.length; i += 2) {
+    for (let i = 0; i < moveList.length; i += 2) {
 
-    let row = document.createElement("div");
+        let row = document.createElement("div");
 
-    let whiteMove = moveList[i] || "";
-    let blackMove = moveList[i + 1] || "";
+        let whiteMove = moveList[i] || "—";
+        let blackMove = moveList[i + 1] || "—";
 
-    row.innerHTML = `
-      <strong>${(i / 2) + 1}.</strong>
-      ${whiteMove} &nbsp;&nbsp; ${blackMove}
-    `;
+        row.innerHTML = `
+            <div>
+                <strong>${(i / 2) + 1}.</strong><br>
+                ♙ W: ${whiteMove}<br>
+                ♟ B: ${blackMove}
+            </div>
+            <hr>
+        `;
 
-    historyDiv.appendChild(row);
-  }
+        historyDiv.appendChild(row);
+    }
 }
