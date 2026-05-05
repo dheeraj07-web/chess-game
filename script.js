@@ -11,9 +11,10 @@ let selectedSquare = null;
 
 let whiteCaptured = [];
 let blackCaptured = [];
+let moveList = [];
 
 // ==========================
-// CAPTURE FUNCTION (UNCHANGED LOGIC, SAFE FIX)
+// CAPTURE SYSTEM (SAFE FIXED)
 // ==========================
 function addCapturedPiece(move) {
 
@@ -88,6 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const piece = square.querySelector("img");
 
+    // STEP 1: select piece
     if (!selectedSquare) {
 
       if (!piece) return;
@@ -114,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // STEP 2: move
     const move = game.move({
       from: selectedSquare,
       to: square.id,
@@ -122,7 +125,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (move) {
 
-      addCapturedPiece(move); // ✅ FIX ADDED HERE
+      addCapturedPiece(move);
+
+      // ✅ ADD MOVE HISTORY
+      recordMove(move.from, move.to, move.piece, move.captured);
 
       selectedSquare = null;
       renderBoard();
@@ -199,7 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!move) return;
 
-    addCapturedPiece(move); // ✅ FIX ADDED HERE
+    addCapturedPiece(move);
+
+    // ✅ ADD MOVE HISTORY
+    recordMove(move.from, move.to, move.piece, move.captured);
 
     renderBoard();
     checkGameStatus();
@@ -214,10 +223,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================
   document.getElementById("undoBtn")?.addEventListener("click", () => {
 
-    game.undo();
+    const undone = game.undo();
 
     if (gameMode === "bot") {
       game.undo();
+      moveList.pop();
+    }
+
+    if (undone) {
+      moveList.pop();
+      updateHistory();
     }
 
     renderBoard();
@@ -228,13 +243,15 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==========================
   document.getElementById("resetBtn")?.addEventListener("click", () => {
     game.reset();
+    moveList = [];
+    updateHistory();
     renderBoard();
   });
 
 });
 
 // ==========================
-// BOT
+// BOT MOVE
 // ==========================
 function botMove() {
 
@@ -244,11 +261,19 @@ function botMove() {
   const moves = game.moves();
   if (moves.length === 0) return;
 
-  const move = moves[Math.floor(Math.random() * moves.length)];
+  const move = game.moves({ verbose: true })[
+    Math.floor(Math.random() * game.moves().length)
+  ];
 
-  game.move(move);
+  const result = game.move(move);
 
-  addCapturedPiece(move); // ✅ FIX ADDED HERE
+  if (result) {
+
+    addCapturedPiece(result);
+
+    // ✅ ADD MOVE HISTORY
+    recordMove(result.from, result.to, result.piece, result.captured);
+  }
 
   renderBoard();
   checkGameStatus();
@@ -264,7 +289,7 @@ function checkGameStatus() {
 }
 
 // ==========================
-// CLEAR
+// CLEAR HIGHLIGHTS
 // ==========================
 function clearHighlights() {
   document.querySelectorAll(".highlight, .selected")
@@ -279,9 +304,7 @@ function renderBoard() {
   const boardState = game.board();
   const files = ["a", "b", "c", "d", "e", "f", "g", "h"];
 
-  document.querySelectorAll(".chess-board div").forEach(sq => {
-    sq.innerHTML = "";
-  });
+  document.querySelectorAll(".chess-board img").forEach(img => img.remove());
 
   for (let r = 0; r < 8; r++) {
     for (let c = 0; c < 8; c++) {
@@ -312,4 +335,91 @@ function renderBoard() {
   document.querySelectorAll(".chess-board img").forEach(img => {
     img.style.transform = isFlipped ? "rotate(180deg)" : "rotate(0deg)";
   });
+}
+
+// ==========================
+// RATING FEATURE (UNCHANGED)
+// ==========================
+const stars = document.querySelectorAll(".stars span");
+const ratingText = document.getElementById("rating-text");
+const submitBtn = document.getElementById("submitBtn");
+
+let rating = 0;
+
+stars.forEach((star, index) => {
+
+  star.addEventListener("mouseover", () => {
+    highlightStars(index);
+  });
+
+  star.addEventListener("mouseout", () => {
+    highlightStars(rating - 1);
+  });
+
+  star.addEventListener("click", () => {
+    rating = index + 1;
+    updateText(rating);
+  });
+});
+
+function highlightStars(index) {
+  stars.forEach((star, i) => {
+    if (i <= index) star.classList.add("active");
+    else star.classList.remove("active");
+  });
+}
+
+function updateText(value) {
+  const messages = [
+    "Very Bad ",
+    "Bad",
+    "Okay",
+    "Good ",
+    "Excellent"
+  ];
+  ratingText.textContent = messages[value - 1];
+}
+
+submitBtn?.addEventListener("click", () => {
+  if (rating === 0) {
+    alert("Please select a rating!");
+  } else {
+    alert("You rated " + rating + " star(s). Thank you!");
+  }
+});
+
+// ==========================
+// MOVE HISTORY SYSTEM
+// ==========================
+function recordMove(from, to, piece, captured = null) {
+  let moveText = `${piece} ${from} → ${to}`;
+
+  if (captured) {
+    moveText += ` x ${captured}`;
+  }
+
+  moveList.push(moveText);
+  updateHistory();
+}
+
+function updateHistory() {
+  const historyDiv = document.getElementById("history");
+  if (!historyDiv) return;
+
+  historyDiv.innerHTML = "";
+
+  for (let i = 0; i < moveList.length; i += 2) {
+
+    let row = document.createElement("div");
+
+    let whiteMove = moveList[i] || "";
+    let blackMove = moveList[i + 1] || "";
+
+    row.innerHTML = `
+      <strong>${(i / 2) + 1}.</strong>
+      ${whiteMove} &nbsp;&nbsp; ${blackMove}
+    `;
+
+    historyDiv.appendChild(row);
+  }
 }
