@@ -1,272 +1,206 @@
-* {
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Cinzel', serif;
+*{
+margin:0;
+padding:0;
+font-family:'Cinzel',serif;
 }
 
-.homeback {
-    height: 100vh;
-    background-image: url("chessbackground.jpg");
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    backdrop-filter: blur(5px);
+.homeback{
+height:100vh;
+background-image:url("chessbackground.jpg");
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+backdrop-filter:blur(5px);
 }
 
-.homefront {
-    position: relative;
-    height: 80%;
-    width: 80%;
-    background-image: url("homepagelogo.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: 1px solid white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(224, 224, 224, 0.5);
-
+.homefront{
+position:relative;
+height:80%;
+width:80%;
+background-image:url("homepagelogo.png");
+background-repeat:no-repeat;
+background-size:cover;
+border:1px solid white;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(224,224,224,0.5);
 }
 
-.home_page {
-    display: flex;
-    flex-direction: row;
-    /* 🔥 important */
-    justify-content: center;
-    gap: 40px;
-    height: 100%;
-    margin-top: 4%;
+.home_page{
+display:flex;
+flex-direction:row;
+justify-content:center;
+gap:40px;
+height:100%;
+margin-top:4%;
 }
 
-.controls {
-    position: absolute;
-    /* 🔥 key */
-    right: 3px;
-    /* touch right border */
-    top: 5%;
-    /* vertical center */
-    transform: translateY(-50%);
-    display: flex;
-    gap: 15px;
-    /* keeps same spacing between buttons */
-    /* align buttons to the right */
+.controls{
+position:absolute;
+right:3px;
+top:5%;
+transform:translateY(-50%);
+display:flex;
+gap:15px;
 }
 
-.controls button {
-    font-size: large;
-    color: #E8D8A6;
-    background-color: transparent;
-    border: 0;
-    padding: 10px 20px;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.05);
-    transition: 0.3s;
+.controls button{
+font-size:large;
+color:#E8D8A6;
+background:rgba(255,255,255,0.05);
+border:0;
+padding:10px 20px;
+border-radius:8px;
+transition:0.3s;
 }
 
-.controls button a {
-    font-size: large;
-    text-decoration: none;
-    color: #E8D8A6;
+.controls button a{
+font-size:large;
+text-decoration:none;
+color:#E8D8A6;
 }
 
 .controls button:hover,
-.controls button a:hover {
-    color: #d4af37;
-    transition: 0.3s;
-    border: 1px solid white;
+.controls button a:hover{
+color:#d4af37;
+border:1px solid white;
+transition:0.3s;
+}
+.controls button a:hover{
+border:none;
+}
+.logo{
+width:250px;
+height:100px;
+background-image:url("finallogo.png");
+background-repeat:no-repeat;
+background-position:center;
+background-size:cover;
+position:absolute;
+left:3px;
+top:10px;
+margin:0;
 }
 
-.logo {
-    width: 250px;
-    height: 100px;
+.visible{visibility:hidden;}
 
-    background-image: url("finallogo.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-
-    position: absolute;
-    /* 🔥 key */
-    left: 3px;
-    /* exact distance from left border */
-    top: 10px;
-    /* adjust if needed */
-
-    margin: 0;
-    /* remove old margins */
+.rating-container{
+background:rgba(0,0,0,0.6);
+padding:30px;
+border-radius:15px;
+text-align:center;
+backdrop-filter:blur(10px);
+box-shadow:0 10px 30px rgba(0,0,0,0.7);
+color:white;
 }
 
-.visible{
-visibility: hidden;
+h2{margin-bottom:20px;}
+
+.stars{
+font-size:40px;
+cursor:pointer;
 }
 
-.controls button a:hover {
-
-    border: none;
-
+.stars span{
+color:#555;
+transition:0.3s;
 }
 
-
-
-.rating-container {
-    background: rgba(0, 0, 0, 0.6);
-    padding: 30px;
-    border-radius: 15px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-    color: white;
+.stars span.active{
+color:#FFD700;
 }
 
-h2 {
-    margin-bottom: 20px;
+#rating-text{
+margin-top:15px;
+font-size:14px;
+color:#ccc;
 }
 
-.stars {
-    font-size: 40px;
-    cursor: pointer;
-}
-
-.stars span {
-    color: #555;
-    transition: 0.3s;
-}
-
-.stars span:hover,
-.stars span:hover~span {
-    color: #555;
-}
-
-.stars span.active {
-    color: #FFD700;
-}
-
-#rating-text {
-    margin-top: 15px;
-    font-size: 14px;
-    color: #ccc;
-}
-
-#submitBtn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #FFD700;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
+#submitBtn,
 #back,
-#back a {
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    background: #FFD700;
-    color: black;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-decoration: none;
-    color: black;
+#back a{
+margin-top:20px;
+padding:10px 20px;
+border:none;
+border-radius:8px;
+background:#FFD700;
+color:black;
+font-weight:bold;
+cursor:pointer;
+transition:0.3s;
+text-decoration:none;
 }
 
 #submitBtn:hover,
-#back:hover a {
-    background: #e6c200;
-    color: #555;
+#back:hover a{
+background:#e6c200;
+color:#555;
 }
 
-@media (max-width: 768px) {
+/* MOBILE */
+@media(max-width:768px){
 
-    /* keep layout same but shrink it */
-    .homeback {
-        background-image: url("phonelogo.png");
-        background-size: cover;
-    }
+.homeback{
+background-image:url("phonelogo.png");
+background-size:cover;
+}
 
-    .homefront {
-        width: 85%;
-        height: 85%;
-        background-image: url("phonelogo.png");
-        background: rgba(0, 0, 0, 0.4);
-        backdrop-filter: blur(10px);
-    }
+.homefront{
+width:85%;
+height:85%;
+background:rgba(0,0,0,0.4);
+backdrop-filter:blur(10px);
+}
 
-    /* reduce spacing so it fits */
-    .home_page {
+.home_page{
+gap:15px;
+margin-top:2%;
+flex-direction:column;
+gap:10px;
+}
 
-        gap: 15px;
-        margin-top: 2%;
-        display: flex;
-        flex-direction: column;
-        /* keep them aligned to right */
-        gap: 10px;
-    }
+.controls{
+position:static;
+transform:none;
+margin-top:20px;
+flex-direction:column;
+align-items:center;
+gap:10px;
+}
 
-    /* adjust controls position (DON'T remove absolute) */
-    .controls {
-        position: static;
-        /* 🔥 remove absolute */
-        transform: none;
-        margin-top: 20px;
+.controls button,
+.controls button a{
+font-size:large;
+}
 
-        display: flex;
-        flex-direction: column;
-        /* stack buttons */
-        align-items: center;
-        /* center them */
-        gap: 10px;
-    }
+.controls button:hover,
+.controls button a:hover{
+color:#49d437;
+}
 
+.logo{
+position:static;
+width:190px;
+height:150px;
+margin:10px auto 0;
+display:block;
+}
 
+.visible{visibility:visible;}
 
-    /* smaller buttons for mobile */
-    .controls button,
-    .controls button a {
-        font-size: large;
-        display: flex;
-        flex-direction: column;
+.title{
+font-family:'Cinzel',serif;
+font-size:48px;
+color:#E8D8A6;
+letter-spacing:5px;
+text-align:center;
+}
 
-    }
-
-    .controls button:hover,
-    .controls button a:hover {
-        color: #49d437;
-        transition: 0.3s;
-    }
-
-
-    .logo {
-        position: static;
-        /* already fixed */
-        width: 190px;
-        height: 150px;
-        margin: 10px auto 0;
-        /* 🔥 THIS centers it */
-        display: block;
-        /* ensures margin auto works */
-    }
-    .visible{
-        visibility: visible;
-    }
-
-    .title {
-        font-family: 'Cinzel', serif;
-        font-size: 48px;
-        color: #E8D8A6;
-        letter-spacing: 5px;
-        text-align: center;
-    }
-
-    .subtitle {
-        color: #ccc;
-        font-size: large;
-        letter-spacing: 2px;
-        margin-top: -10px;
-        text-align: center;
-
-    }
+.subtitle{
+color:#ccc;
+font-size:large;
+letter-spacing:2px;
+margin-top:-10px;
+text-align:center;
+}
 }
