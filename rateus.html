@@ -1,49 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rate Us</title>
-
+    <script src="script.js" defer></script>
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="homestyle.css">
     <style>
-    * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-body {
-    height: 100vh;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}</style>
+        body {
+            height: 100vh;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="rating-container">
-    <h2>Rate Your Experience</h2>
+    <div class="rating-container">
+        <h2>Rate Your Experience</h2>
 
-    <div class="stars">
-        <span data-value="1">★</span>
-        <span data-value="2">★</span>
-        <span data-value="3">★</span>
-        <span data-value="4">★</span>
-        <span data-value="5">★</span>
+        <div class="stars">
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+        </div>
+
+        <p id="rating-text">Click a star to rate</p>
+
+        <button id="submitBtn">Submit Rating</button><br>
+        <button id="back"><a href="index.html">return to home page</a></button>
     </div>
 
-    <p id="rating-text">Click a star to rate</p>
-
-    <button id="submitBtn">Submit Rating</button><br>
-     <button id="back"><a href="index.html">return to home page</a></button>
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

@@ -4,6 +4,8 @@
     <title>chess game</title>
     <link rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="script.js" defer></script>
 </head>
 
 <body id="bground">
@@ -12,17 +14,36 @@
             <div class="logo"></div>
         </div>
         <div class="menu">
-            <button id="resetBtn">New Game</button>
-            <button id="undoBtn">Undo</button>
-            <button id="flipBtn">Flip</button>
-            <button id="rateus"><a href="rateus.html">rate us</a></button>
-            <button id="back"><a href="index.html">return to home page</a></button>
+            <button id="resetBtn">
+                <i class="fa-solid fa-rotate"></i> New Game
+            </button>
+
+            <button id="undoBtn">
+                <i class="fa-solid fa-rotate-left"></i> Undo
+            </button>
+
+            <button id="flipBtn">
+                <i class="fa-solid fa-retweet"></i> Flip
+            </button>
+
+            <button id="rateus">
+                <a href="rateus.html">
+                    <i class="fa-solid fa-star"></i> Rate Us
+                </a>
+            </button>
+
+            <button id="back">
+                <a href="index.html">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </button>
         </div>
     </div>
     <div class="game-wrapper">
 
         <!-- top captured (black pieces) -->
         <div class="black-captured">
+            <i class="fa-solid fa-skull" style="color:white;margin-right:5px;"></i>
             <div id="blackCaptured"></div>
         </div>
         <div class="chess-board">
@@ -196,14 +217,15 @@
             </div>
         </div>
         <div class="white-captured">
+            <i class="fa-solid fa-crown" style="color:black;margin-right:5px;"></i>
             <div id="whiteCaptured"></div>
         </div>
 
 
     </div>
     </div>
-      <div class="move-history">
-        <h3>Move History</h3>
+    <div class="move-history">
+        <h3><i class="fa-solid fa-clock-rotate-left"></i> Move History</h3>
         <div id="history"></div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>

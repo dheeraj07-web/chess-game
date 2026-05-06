@@ -5,32 +5,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>chessgame</title>
+
     <link rel="stylesheet" href="homestyle.css">
-     <script src="script.js" defer></script>
+
+    <!-- ✅ Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="script.js" defer></script>
 </head>
 
 <body class="homeback">
     <div class="homefront">
+
         <div class="home_page">
 
+            <!-- LOGO -->
             <div class="gamelogo">
                 <div class="logo"></div>
             </div>
+
+            <!-- TITLE -->
             <div class="visible">
                 <h1 class="title">CHESS</h1>
                 <p class="subtitle">Strategy • Focus • Victory</p>
             </div>
 
+            <!-- CONTROLS -->
             <div class="controls">
-                <button id="pvpBtn">Play vs player</button>
-                <button id="botBtn">Play vs bot</button>
-                <button><a
-                        href="https://www.thesprucecrafts.com/most-common-chess-openings-611517">openings</a></button>
 
-                <button><a href="contact_det.html">Contact us</a></button>
-                <button><a href="https://chesstrainer.org/resources/guides/how-to-play-chess">Learn
-                        chess</a></button>
-                <button id="rateus"><a href="rateus.html">rate us</a></button>
+                <button id="pvpBtn">
+                    <i class="fa-solid fa-user-group"></i> Play vs Player
+                </button>
+
+                <button id="botBtn">
+                    <i class="fa-solid fa-robot"></i> Play vs Bot
+                </button>
+
+                <button>
+                    <a href="https://www.thesprucecrafts.com/most-common-chess-openings-611517">
+                        <i class="fa-solid fa-chess"></i> Openings
+                    </a>
+                </button>
+
+                <button>
+                    <a href="contact_det.html">
+                        <i class="fa-solid fa-envelope"></i> Contact Us
+                    </a>
+                </button>
+
+                <button>
+                    <a href="https://chesstrainer.org/resources/guides/how-to-play-chess">
+                        <i class="fa-solid fa-graduation-cap"></i> Learn Chess
+                    </a>
+                </button>
+
+                <button id="rateus">
+                    <a href="rateus.html">
+                        <i class="fa-solid fa-star"></i> Rate Us
+                    </a>
+                </button>
+
             </div>
 
         </div>
@@ -38,6 +72,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
     <script src="script.js"></script>
-</body>
 
-</html>>>
+</body>
+</html>
